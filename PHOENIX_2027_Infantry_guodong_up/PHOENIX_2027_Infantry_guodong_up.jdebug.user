@@ -1,0 +1,30 @@
+
+
+OpenDocument="main.c", FilePath="E:/RM/PHOENIX_2027_Infantry_guodong/PHOENIX_2027_Infantry_guodong_up/Core/Src/main.c", Line=59
+OpenDocument="SEGGER_RTT_printf.c", FilePath="E:/RM/PHOENIX_2027_Infantry_guodong/PHOENIX_2027_Infantry_guodong_up/phoenix_embedded_base_code/Module/SEGGER/Jlink_RTT/SEGGER_RTT_printf.c", Line=326
+OpenDocument="dev_motor_dji.h", FilePath="E:/RM/PHOENIX_2027_Infantry_guodong/PHOENIX_2027_Infantry_guodong_up/phoenix_embedded_base_code/Module/Motor/Dji/dev_motor_dji.h", Line=0
+OpenDocument="alg_pid.h", FilePath="E:/RM/PHOENIX_2027_Infantry_guodong/PHOENIX_2027_Infantry_guodong_up/phoenix_embedded_base_code/Algorithm/Pid/alg_pid.h", Line=0
+OpenDocument="memcpy.c", FilePath="/build/gnu-tools-for-stm32_14.3.rel1.20251027-0700/src/newlib/newlib/libc/string/memcpy.c", Line=0
+OpenDocument="stm32f4xx_hal.c", FilePath="E:/RM/PHOENIX_2027_Infantry_guodong/PHOENIX_2027_Infantry_guodong_up/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c", Line=310
+OpenDocument="ShootTask.c", FilePath="E:/RM/PHOENIX_2027_Infantry_guodong/PHOENIX_2027_Infantry_guodong_up/UserFile/Application/ShootTask/ShootTask.c", Line=62
+OpenDocument="GimbalTask.c", FilePath="E:/RM/PHOENIX_2027_Infantry_guodong/PHOENIX_2027_Infantry_guodong_up/UserFile/Application/GimbalTask/GimbalTask.c", Line=97
+OpenDocument="stm32f4xx_hal_can.c", FilePath="E:/RM/PHOENIX_2027_Infantry_guodong/PHOENIX_2027_Infantry_guodong_up/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.c", Line=1245
+OpenToolbar="Debug", Floating=0, x=0, y=0
+OpenWindow="Source Files", DockArea=LEFT, x=0, y=0, w=743, h=166, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Memory 1", DockArea=BOTTOM, x=1, y=0, w=1021, h=258, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, EditorAddress=0x20000EC4
+OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=1, w=743, h=996, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Data Sampling", DockArea=BOTTOM, x=0, y=0, w=1538, h=258, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VisibleTab=0, UniformSampleSpacing=0
+OpenWindow="Timeline", DockArea=RIGHT, x=0, y=0, w=1479, h=1163, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=1, DataPaneShown=1, PowerPaneShown=0, CodePaneShown=0, PinCursor="Cursor Movable", TimePerDiv="100 ms / Div", TimeStampFormat="Time", DataGraphDrawAsPoints=0, DataGraphLegendShown=1, DataGraphUniformSampleSpacing=0, DataGraphLegendPosition="981;0", DataGraphShowNamesAtCursor=0, PowerGraphDrawAsPoints=0, PowerGraphLegendShown=0, PowerGraphAvgFilterTime=Off, PowerGraphAvgFilterLen=Off, PowerGraphUniformSampleSpacing=0, PowerGraphLegendPosition="370;0", CodeGraphLegendShown=0, CodeGraphLegendPosition="322;0"
+SmartViewPlugin="", Page="", Toolbar="Hidden", Window="SmartView 1"
+TableHeader="Source Files", SortCol="File", SortOrder="ASCENDING", VisibleCols=["File";"Status";"Size";"#Insts";"Path"], ColWidths=[271;100;100;100;1150]
+TableHeader="Data Sampling Table", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time"], ColWidths=[100;100]
+TableHeader="Data Sampling Setup", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[118;100;100;100;100;100;110;126;684]
+TableHeader="Power Sampling", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";"Ch 0"], ColWidths=[100;100;100]
+TableHeader="Watched Data 1", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Value";"Location";"Refresh";"Access"], ColWidths=[202;124;104;362;100]
+TableHeader="RegisterSelectionDialog", SortCol="None", SortOrder="ASCENDING", VisibleCols=[], ColWidths=[]
+TableHeader="TargetExceptionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[200;100;100;340]
+WatchedExpression="dial_instance", RefreshRate=5, Window=Watched Data 1
+WatchedExpression="left_wheel_instance", RefreshRate=5, Window=Watched Data 1
+WatchedExpression="right_wheel_instance", RefreshRate=5, Window=Watched Data 1
+WatchedExpression="et08a_instance", RefreshRate=5, Window=Watched Data 1
+WatchedExpression="shoot_message", Window=Watched Data 1
