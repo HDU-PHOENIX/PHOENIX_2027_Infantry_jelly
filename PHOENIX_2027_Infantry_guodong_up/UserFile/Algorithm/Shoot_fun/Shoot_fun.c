@@ -73,23 +73,19 @@ bool shoot_control_fun(shoot_message_s *shoot_message, rm_massage_s *rm_massage)
             shoot_message->right_motor.target_velocity = 0.0f;
             return true;
         case SHOOT_SINGLE:
-            if (check == 1 || *rm_massage->sa == 2)
+            if (check == 0 && *rm_massage->sa == 2)
             {
                 shoot_message->dial.target_position += 44.98f/180.0f*M_PI;
-                /* 折到 now ± π 内，跨 ±π 不丢步 */
-                if ((shoot_message->dial.target_position - *shoot_message->dial.now_position) > M_PI)
-                    shoot_message->dial.target_position -= 2*M_PI;
-                if ((*shoot_message->dial.now_position - shoot_message->dial.target_position) > M_PI)
-                    shoot_message->dial.target_position += 2*M_PI;
-                /* 防卡弹：目标超前超过 90°，放弃这一步 */
-                if ((shoot_message->dial.target_position - *shoot_message->dial.now_position) > M_PI/2.0f)
-                    shoot_message->dial.target_position = *shoot_message->dial.now_position;
-                check = 0;
-            }
-            else if (check == 0 || *rm_massage->sa == 1)
-            {
                 check = 1;
             }
+            else if (check == 1 && *rm_massage->sa == 1)
+            {
+                check = 0;
+            }
+            if ((shoot_message->dial.target_position - *shoot_message->dial.now_position) < -M_PI)
+                shoot_message->dial.target_position += 2*M_PI;
+            else if ((shoot_message->dial.target_position - *shoot_message->dial.now_position) > M_PI)
+                shoot_message->dial.target_position -= 2*M_PI;
             shoot_message->left_motor.target_velocity = WHEEL_VELOCITY;
             shoot_message->right_motor.target_velocity = -WHEEL_VELOCITY;
             return true;
@@ -98,15 +94,11 @@ bool shoot_control_fun(shoot_message_s *shoot_message, rm_massage_s *rm_massage)
             if (count >= (1000/DIAL_FREQUENCY - 1)){
                 shoot_message->dial.target_position += 44.98f/180.0f*M_PI;
                 count=0;
-                /* 折到 now ± π 内，跨 ±π 不丢步 */
-                if ((shoot_message->dial.target_position - *shoot_message->dial.now_position) > M_PI)
-                    shoot_message->dial.target_position -= 2*M_PI;
-                if ((*shoot_message->dial.now_position - shoot_message->dial.target_position) > M_PI)
-                    shoot_message->dial.target_position += 2*M_PI;
-                /* 防卡弹：目标超前超过 90°，放弃这一步 */
-                if ((shoot_message->dial.target_position - *shoot_message->dial.now_position) > M_PI/2.0f)
-                    shoot_message->dial.target_position = *shoot_message->dial.now_position;
             }
+            if ((shoot_message->dial.target_position - *shoot_message->dial.now_position) < -M_PI)
+                shoot_message->dial.target_position += 2*M_PI;
+            else if ((shoot_message->dial.target_position - *shoot_message->dial.now_position) > M_PI)
+                shoot_message->dial.target_position -= 2*M_PI;
             shoot_message->left_motor.target_velocity = WHEEL_VELOCITY;
             shoot_message->right_motor.target_velocity = -WHEEL_VELOCITY;
             return true;

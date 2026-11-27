@@ -69,10 +69,15 @@ static gimbal_mode_e gimbal_mode_fun(rm_massage_s *rm_massage)
  */
 static bool gimbal_pitch_fold_fun(gimbal_message_s *gimbal_message, quaternions_struct_t Quater)
 {
-    gimbal_message->small_pitch.target_position = SMALL_PITCH_FOLD_POSITION;
+    static float delta = 0.0f; //大pitch现在角度与垂直角度差值
+
     gimbal_message->big_pitch.target_position = BIG_PITCH_FOLD_POSITION;
     shortest_way_find(gimbal_message->big_pitch.now_position, &gimbal_message->big_pitch.target_position);
+
+    delta = *gimbal_message->small_pitch.now_position - BIG_PITCH_NORMAL_POSITION;
+    gimbal_message->small_pitch.target_position = SMALL_PITCH_NORMAL_POSITION - delta;
     shortest_way_find(gimbal_message->small_pitch.now_position, &gimbal_message->small_pitch.target_position);
+
     if ((fabsf(*gimbal_message->small_pitch.now_position - SMALL_PITCH_FOLD_POSITION) <= 0.001f) &&
         (fabsf(*gimbal_message->big_pitch.now_position - BIG_PITCH_FOLD_POSITION) <= 0.001f))
     {
@@ -183,7 +188,7 @@ bool gimbal_fun(gimbal_message_s *gimbal_message, rm_massage_s *rm_massage, quat
 
     gimbal_message->gimbal_mode = gimbal_mode_fun(rm_massage);
 
-     if (gimbal_message->gimbal_mode == GIMBAL_DISABLE) //失能后重设初始化标志
+    if (gimbal_message->gimbal_mode == GIMBAL_DISABLE) //失能后重设初始化标志
     {
         gimbal_message->yaw.gimbal_motor_state = 0U;
         gimbal_message->big_pitch.gimbal_motor_state = 0U;
@@ -193,12 +198,17 @@ bool gimbal_fun(gimbal_message_s *gimbal_message, rm_massage_s *rm_massage, quat
     
     if (gimbal_message->gimbal_mode != GIMBAL_DISABLE)
     {
+        gimbal_message->yaw.gimbal_motor_state = 1U;
+        gimbal_message->big_pitch.gimbal_motor_state = 1U;
+        gimbal_message->small_pitch.gimbal_motor_state = 1U;
+
         if (gimbal_message->gimbal_init_state) //正常情况下
         {
             gimbal_control_fun(gimbal_message, rm_massage, Quater);
         }
         else                                   //当云台已使能但未初始化时：进行初始化，并在初始化完成后置初始化标志为ture
         {
+            /*
             gimbal_message->yaw.target_position = *gimbal_message->yaw.now_position;
             gimbal_message->big_pitch.target_position = *gimbal_message->big_pitch.now_position;
             gimbal_message->small_pitch.target_position = *gimbal_message->small_pitch.now_position;
@@ -211,11 +221,11 @@ bool gimbal_fun(gimbal_message_s *gimbal_message, rm_massage_s *rm_massage, quat
             {
                 gimbal_message->gimbal_init_state = true;
             }
+            */
+            gimbal_message->gimbal_init_state = true;
         }
     }
-
-
-
+    //上时刻位置记录
     gimbal_message->yaw.last_position = *gimbal_message->yaw.now_position;
     gimbal_message->big_pitch.last_position = *gimbal_message->big_pitch.now_position;
     gimbal_message->small_pitch.last_position = *gimbal_message->small_pitch.now_position;

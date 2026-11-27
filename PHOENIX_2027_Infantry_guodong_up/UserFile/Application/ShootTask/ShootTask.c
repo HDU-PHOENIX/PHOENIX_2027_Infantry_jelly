@@ -20,11 +20,11 @@ DjiMotorInitConfig_s left_wheel_config = {
     },
     .reduction_ratio = 1.0f,
     .velocity_pid_config = {
-        .kp = 1.0f,
-        .ki = 0.001f,
+        .kp = 10.0f,
+        .ki = 0.1f,
         .kd = 0.0f,
-        .i_max = 2000.0f,
-        .out_max = 10000.0f
+        .i_max = 6000.0f,
+        .out_max = 14000.0f
     }
 };
 
@@ -40,11 +40,11 @@ DjiMotorInitConfig_s right_wheel_config = {
     },
     .reduction_ratio = 1.0f,
     .velocity_pid_config = {
-        .kp = 1.0f,
-        .ki = 0.001f,
+        .kp = 10.0f,
+        .ki = 0.1f,
         .kd = 0.0f,
-        .i_max = 2000.0f,
-        .out_max = 10000.0f
+        .i_max = 6000.0f,
+        .out_max = 14000.0f
     }
 };
 
@@ -61,14 +61,14 @@ DjiMotorInitConfig_s dial_config = {
     },
     .velocity_pid_config = {
         .i_max = 4000.0f,
-        .out_max = 6000.0f,
+        .out_max = 10000.0f,
         .kp = 450.0f,
-        .ki = 0.01f,
+        .ki = 1.0f,
         .kd = 0.0f,
     },
     .angle_pid_config = {
         .i_max = 0.0f,
-        .out_max = 300.0f,
+        .out_max = 450.0f,
         .kp = 100.0f,
         .ki = 0.0f,
         .kd = 0.0f,
@@ -98,12 +98,20 @@ void ShootTask(void const * argument)
         if (shoot_message->shoot_mode != SHOOT_DISABLE)
         {
             Motor_Dji_Control(dial_instance, shoot_message->dial.target_position);
+            if (fabsf(dial_instance->message.out_position - dial_instance->target_position) <= 0.001f)
+            {
+                dial_instance->velocity_pid->i_out = 0.0f;
+            }
             Motor_Dji_Control(left_wheel_instance, shoot_message->left_motor.target_velocity);
             Motor_Dji_Control(right_wheel_instance, shoot_message->right_motor.target_velocity);
         }
         if (shoot_message->shoot_mode == SHOOT_DISABLE)
         {
             Motor_Dji_Control(dial_instance, shoot_message->dial.target_position);
+            if (fabsf(dial_instance->message.out_position - dial_instance->target_position) <= 0.001f)
+            {
+                dial_instance->velocity_pid->i_out = 0.0f;
+            }
             if (fabsf(left_wheel_instance->message.out_velocity) > 600.0f ||
                 fabsf(right_wheel_instance->message.out_velocity) > 600.0f)
             {
@@ -117,9 +125,10 @@ void ShootTask(void const * argument)
             }
 
         }
-        if (dial_instance->output < -300.0f)
+        if (dial_instance->output < -500.0f)
         {
-            Motor_Dji_SetCurrent(dial_instance, 0.0f);
+            dial_instance->output = -500.0f;
+            dial_instance->velocity_pid->p_out = (dial_instance->velocity_pid->p_out < -200.0f)?(-200.0f):dial_instance->velocity_pid->p_out;
         }
         Motor_Dji_Transmit(dial_instance);
         Motor_Dji_Transmit(left_wheel_instance);

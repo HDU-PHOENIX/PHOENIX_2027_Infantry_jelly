@@ -51,31 +51,31 @@ static DmMotorInitConfig_s big_pitch_config = {
     .topic_name = "big_pitch",
     .type = J4340,
     .parameters = {
-        .pos_max = 3.1415926f,
-        .vel_max = 30.0f,       // 达妙 V_MAX，必须非 0：MIT 帧编码以它为分母
-        .tor_max = 7.0f,
+        .pos_max = 12.5f,
+        .vel_max = 10.0f,       // 达妙 V_MAX，必须非 0：MIT 帧编码以它为分母
+        .tor_max = 28.0f,
         .kp_max = 500.0f,       // 达妙 KP_MAX，必须非 0
         .kd_max = 5.0f,         // 达妙 KD_MAX，必须非 0
     },
     .can_config = {
         .can_number = 2,
-        .rx_id = 0x01,
-        .tx_id = 0x19
+        .rx_id = 0x12,
+        .tx_id = 0x02
     },
     .control_mode = DM_POSITION,
     .velocity_pid_config = {
-        .kp = 0.0f,
-        .ki = 0.0f,
+        .kp = 5.0f,
+        .ki = 0.05f,
         .kd = 0.0f,
-        .i_max = 0.0f,
-        .out_max = 0.0f
+        .i_max = 8.0f,
+        .out_max = 25.0f
     },
     .angle_pid_config = {
-        .kp = 0.0f,
+        .kp = 7.0f,
         .ki = 0.0f,
         .kd = 0.0f,
         .i_max = 0.0f,
-        .out_max = 0.0f
+        .out_max = 10.0f
     }
 };
 //小pitch轴config
@@ -84,8 +84,8 @@ static RsMotorInitConfig_s small_pitch_config = {
     .type = EL_05,
     .can_config = {
         .can_number = 1,
-        .rx_id = 0x001,
-        .tx_id = 0x7FD
+        .rx_id = 0xFD,
+        .tx_id = 0x01
     },
     .control_mode = RS_POSITION,
     .velocity_pid_config = {
@@ -123,7 +123,6 @@ void GimbalTask(void const * argument)
     /* init code for USB_DEVICE */
     MX_USB_DEVICE_Init();
     /* USER CODE BEGIN GimbalTask */
-    Can_Init();
     /* 实例注册区 */
 #ifdef Dr16
     dr16_instance = Dr16_Register(&huart6);

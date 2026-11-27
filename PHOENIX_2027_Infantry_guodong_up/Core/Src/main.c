@@ -32,6 +32,7 @@
 /* USER CODE BEGIN Includes */
 #include "bsp_dwt.h"
 #include "bsp_log.h"
+#include "bsp_can.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -109,6 +110,7 @@ int main(void)
   MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
 
+  Can_Init();
   DWT_Init(168);      // 必须！INS任务的dt、BMI088/Bmi088寄存器重试的Dwt_Delay都靠它
   Log_Init();
 

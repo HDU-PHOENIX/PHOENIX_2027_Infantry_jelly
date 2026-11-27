@@ -21,12 +21,13 @@
 //遥控器灵敏度
 #define SENSITIVITY (0.001f/660.0f)
 //小pitch限位
-#define SMALL_PITCH_LIMIT_UP 0.0f           //小pitch上限
-#define SMALL_PITCH_LIMIT_DOWN 0.0f         //小pitch下限
-#define SMALL_PITCH_FOLD_POSITION 0.0f      //小pitch折叠位置
+#define SMALL_PITCH_LIMIT_UP 2.15f           //小pitch上限
+#define SMALL_PITCH_LIMIT_DOWN -3.00f         //小pitch下限
+#define SMALL_PITCH_NORMAL_POSITION 2.73f    //小pitch水平位置
+#define SMALL_PITCH_FOLD_POSITION 1.81f      //小pitch折叠位置
 //大pitch位置
-#define BIG_PITCH_NORMAL_POSITION 0.0f  //大pitch垂直位置
-#define BIG_PITCH_FOLD_POSITION 1.0f    //大pitch折叠位置
+#define BIG_PITCH_NORMAL_POSITION 2.60f  //大pitch水平位置
+#define BIG_PITCH_FOLD_POSITION -2.85f    //大pitch折叠位置
 //yaw轴折叠时限位
 #define YAW_FOLD_LIMIT_UP 0.0f          //yaw灯条死区上限
 #define YAW_FOLD_LIMIT_DOWN 0.0f        //yaw灯条死区下限，up>down
